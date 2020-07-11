@@ -22,6 +22,7 @@ db.connect((err) => {
 
 
 const app = express();
+app.use(express.json());
 
 // Create table
 app.get('/createposttable', (req, res) => {
@@ -42,6 +43,12 @@ app.get('/addpost1', (req, res) => {
         console.log(result);
         res.send('post added');
         });
+    });
+    
+// Testing post service
+app.post("/makepost", (req, res) => {
+        console.log(req.body.name);
+        res.send("lol");
     });
 
 
