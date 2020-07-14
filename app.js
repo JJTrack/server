@@ -50,6 +50,11 @@ app.post("/makepost", (req, res) => {
         console.log(req.body.name);
         res.send("lol");
     });
+    
+// Show server being hit
+app.get('/hello', (req, res) => {
+    console.log("I've been hit");
+    })
 
 
 app.listen(3000, () => console.log('listening at 3000'));
