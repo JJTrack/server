@@ -5,10 +5,12 @@ const host = "192.168.1.105";
 // Create instance of server 
 const server = net.createServer(onClientConnection);
 
+
 // Start listening with the server on given port and host.
 server.listen(port, host, function() {
 	console.log(`server started on port ${port} at ${host}`);
 });
+
 
 // Declare connection listener function
 function onClientConnection(sock){
@@ -18,8 +20,13 @@ function onClientConnection(sock){
 	sock.on('data', function(data){
 			//Log data from the client 
 			console.log(`${sock.remoteAddress}:${sock.remotePort} Says : ${data} `);
+			
+			var today = new Date();
+			var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+			var time = today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
+			var blah = time +" "+date;
 			// Send back the data to the client
-			sock.write(`Howwwddeedooo Joseph`);
+			sock.write(blah);
 		});
 		
 	// Handle client connection termination.
