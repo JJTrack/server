@@ -19,6 +19,11 @@ function onClientConnection(sock){
 	// Listen for data from the connected client.
 	sock.on('data', function(data){
 			//Log data from the client 
+			var RSSI = data.slice(0, 1);
+			var BLEUUID = data.slice(1, 7);
+			var NodeUUID = data.slice(7, 13);
+			var PacketID = data.slice(13);
+			console.log(`RSSI = ${RSSI} | BLEUUID = ${BLEUUID} | NodeUUID = ${NodeUUID} | PacketID = ${PacketID}`);
 			console.log(`${sock.remoteAddress}:${sock.remotePort} Says : 
 			RSSI = ${data[0]} 
 			BLEUUID = ${data[1]}:${data[2]}:${data[3]}:${data[4]}:${data[5]}:${data[6]}
