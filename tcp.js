@@ -1,6 +1,6 @@
 const net = require('net');
 const port = 8080;
-const host = "192.168.1.105";
+const host = "192.168.1.76";
 
 // Create instance of server 
 const server = net.createServer(onClientConnection);
@@ -19,7 +19,12 @@ function onClientConnection(sock){
 	// Listen for data from the connected client.
 	sock.on('data', function(data){
 			//Log data from the client 
-			console.log(`${sock.remoteAddress}:${sock.remotePort} Says : ${data} `);
+			console.log(`${sock.remoteAddress}:${sock.remotePort} Says : 
+			RSSI = ${data[0]} 
+			BLEUUID = ${data[1]}:${data[2]}:${data[3]}:${data[4]}:${data[5]}:${data[6]}
+			NodeUUID = ${data[7]}:${data[8]}:${data[9]}:${data[10]}:${data[11]}:${data[12]}
+			PacketID = ${data[13]}:${data[14]}:${data[15]}:${data[16]}:${data[17]}:${data[18]}:${data[19]}:${data[20]}`);
+			console.log()
 			
 			var today = new Date();
 			var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
