@@ -1,7 +1,6 @@
 const net = require('net');
 const port = 8080;
-const host = "";
-// var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+const host = "192.168.1.69";
 
 
 // Create instance of server 
@@ -9,8 +8,19 @@ const server = net.createServer(onClientConnection);
 
 // CSV writer 
 const createCsvWriter = require('csv-writer').createArrayCsvWriter;
-const csvWriter = createCsvWriter({
-    path: 'data.csv',
+
+const csvWriterZero = createCsvWriter({
+    path: 'data0.csv',
+    header: ['TIME', 'NODEUUID', 'BLEUUID', 'RSSI', 'PACKETID']
+});
+
+const csvWriterOne = createCsvWriter({
+    path: 'data1.csv',
+    header: ['TIME', 'NODEUUID', 'BLEUUID', 'RSSI', 'PACKETID']
+});
+
+const csvWriterTwo = createCsvWriter({
+    path: 'data2.csv',
     header: ['TIME', 'NODEUUID', 'BLEUUID', 'RSSI', 'PACKETID']
 });
 
@@ -44,7 +54,14 @@ function onClientConnection(sock){
 
 			let record = [[time, NodeUUID, BLEUUID, RSSI, PacketID]];
 
-			csvWriter.writeRecords(record).then( console.log("data written"));       // returns a promise
+			if(data[12] == 11) {
+				csvWriterOne.writeRecords(record).then( console.log("data One written"));       // returns a promise
+			} else if (data[12] == 12){
+				csvWriterTwo.writeRecords(record).then( console.log("data Two written"));       // returns a promise
+			} else if (data[12] == 10){
+				csvWriterZero.writeRecords(record).then( console.log("data Zero written"));       // returns a promise
+			}
+
 			
 		});
 		
@@ -59,10 +76,3 @@ function onClientConnection(sock){
 		});
 };
 
-
-// var today = new Date();
-// var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-// var time = today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
-// var blah = time +" "+date;
-// Send back the data to the client
-// sock.write(blah);
