@@ -1,6 +1,6 @@
 const net = require('net');
 const port = 8080;
-const host = "192.168.1.69";
+const host = "192.168.1.67";
 
 
 // Create instance of server 
